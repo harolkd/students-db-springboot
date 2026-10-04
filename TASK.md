@@ -10,4 +10,4 @@ Follow the arquitecture describe in ARQUITECTURA.md
 6. You should code a controller, a mapper, a dto, a repository and a model.
 7. Do not install new libreries
 8. Do not exceute any terminal comands
-9. Stop when the code is fully ready, let the user test and execute.
+9. Stop when the code is fully ready, let the user test and compile.
