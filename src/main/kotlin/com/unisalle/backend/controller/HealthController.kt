@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.sql.DataSource
 
 @RestController
-@RequestMapping("/api/v1/health")
+@RequestMapping("/api/health")
 class HealthController(
     private val dataSource: DataSource
 ) {

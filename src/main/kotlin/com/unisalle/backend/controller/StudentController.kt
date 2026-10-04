@@ -16,7 +16,7 @@ import java.net.URI
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api/v1/students")
+@RequestMapping("/api/students")
 class StudentController(
     private val studentService: StudentService
 ) {

@@ -15,28 +15,36 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig
-
-@Bean
-fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-    http.csrf { it.disable() }
-        .cors { it.configurationSource(corsConfigurationSource()) }
-        .authorizeHttpRequests { it.anyRequest().permitAll() }
-    return http.build()
-}
-
-
-@Bean
-fun corsConfigurationSource():CorsConfigurationSource {
-    val configuration = CorsConfiguration().apply {
-        allowedOrigins = listOf("http://localhost:4200")
-        allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        allowedHeaders = listOf("*")
-        allowCredentials = true
+class SecurityConfig {
+    init {
+        println("SecurityConfig initialized!")
     }
 
-    val source = UrlBasedCorsConfigurationSource()
-    source.registerCorsConfiguration("/**", configuration)
-    return source
+    @Bean
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        println("Building security filter chain...")
+        http
+            .csrf { it.disable() }
+            .authorizeHttpRequests { auth ->
+                auth.anyRequest().permitAll()
+            }
+            .httpBasic { it.disable() }
+            .cors { it.configurationSource(corsConfigurationSource()) }
+        return http.build()
+    }
+
+    @Bean
+    fun corsConfigurationSource():CorsConfigurationSource {
+        val configuration = CorsConfiguration().apply {
+            allowedOrigins = listOf("http://localhost:8080")
+            allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            allowedHeaders = listOf("*")
+            allowCredentials = true
+        }
+
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", configuration)
+        return source
+    }
 }
     

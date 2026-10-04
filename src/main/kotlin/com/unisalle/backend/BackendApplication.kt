@@ -7,6 +7,7 @@ import org.springframework.boot.runApplication
 class BackendApplication
 
 fun main(args: Array<String>) {
-	runApplication<BackendApplication>(*args)
-	println("Server is running...")
+	val context = runApplication<BackendApplication>(*args)
+	val port = context.environment.getProperty("server.port", "8080")
+	println("Server is running on port $port")
 }
