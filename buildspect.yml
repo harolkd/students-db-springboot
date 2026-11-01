@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Compilando la aplicación Kotlin con Maven y empaquetando con Docker...
+      - docker build -t mi-api-estudiantes .
+  post_build:
+    commands:
+      - echo Generando el manifiesto de despliegue para AWS Elastic Beanstalk...
+      - printf '{"AWSEBDockerrunVersion":"1","Image":{"Name":"mi-api-estudiantes","Update":"true"},"Ports":[{"ContainerPort":8080}]}' > Dockerrun.aws.json
+
+artifacts:
+  files:
+    - Dockerrun.aws.json
